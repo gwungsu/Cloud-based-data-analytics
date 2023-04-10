@@ -1,0 +1,31 @@
+from google.cloud import bigquery
+
+def analyze_clinical_trial_data(project_id, dataset_id, table_id):
+    # Instantiate a client to connect to BigQuery
+    client = bigquery.Client(project=project_id)
+
+    # Construct a SQL query to retrieve the necessary data
+    query = """
+        SELECT
+            treatment,
+            COUNT(*) AS num_patients,
+            AVG(age) AS avg_age,
+            AVG(weight) AS avg_weight,
+            AVG(height) AS avg_height
+        FROM
+            {}.{}
+        GROUP BY
+            treatment
+    """.format(dataset_id, table_id)
+
+    # Execute the query and return the results
+    query_job = client.query(query)
+    results = query_job.result()
+
+    # Process the results and output them to the console
+    for row in results:
+        print("Treatment: {}".format(row.treatment))
+        print("Number of patients: {}".format(row.num_patients))
+        print("Average age: {}".format(row.avg_age))
+        print("Average weight: {}".format(row.avg_weight))
+        print("Average height: {}".format(row.avg_height))
