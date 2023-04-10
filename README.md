@@ -1,1 +1,2 @@
 # Cloud-based-data-analytics
+I am using the google-cloud-bigquery library to connect to a BigQuery dataset and table, and then executing a SQL query to retrieve some aggregated data about patients in a clinical trial. We're then processing the results and printing them to the console. This is an adaptation from codes I have worked on for a research lab to help with Qualtrics data analysis, this shows how a cloud-based data analytics program could be used to analyze clinical trial data.
